@@ -79,10 +79,13 @@ class SubmitRequest extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <Button 
-                                value="Submit"
-                                onClick={this.submitAction}
-                            />
+                            <td align="center">
+                                <Button 
+                                    value="Submit"
+                                    onClick={this.submitAction}
+                                />
+                            </td>
+                            
                         </tr>
                     </tbody>
                 </table>

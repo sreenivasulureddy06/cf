@@ -24,7 +24,7 @@ class Main extends Component {
     }
     render() {
         let enableUploadImages = false;
-        if(localStorage.getItem("loginSuccess") === "Yes") {
+        if(sessionStorage.getItem("loginSuccess") === "Yes") {
             enableUploadImages = true;
         }
         return(
@@ -64,7 +64,7 @@ class Main extends Component {
                     <div style={{width: "15%", float: "left"}}>
                         &nbsp;
                     </div>
-                    <div style={{width: "69%", float: "left"}} className="routeContainer">
+                    <div style={{width: "67%", float: "left", borderLeft: "2px solid #ccc", paddingLeft: "10px"}} className="routeContainer">
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route path="/products" component={Bags} />
@@ -74,7 +74,7 @@ class Main extends Component {
                             <Route path="/login" component={Login} />
                         </Switch>
                     </div>
-                    <div style={{width: "15%", float: "left"}}>
+                    <div style={{width: "15%", float: "left", borderLeft: "2px solid #ccc"}}>
                         <SubmitRequest 
                         />
                     </div>

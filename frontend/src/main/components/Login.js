@@ -23,10 +23,10 @@ class Login extends Component {
     loginSubmit() {
         if(this.state.userName === "Sravanthi" && this.state.password === "Password@1") {
             alert("Login Success. Please refreh the application.")
-            localStorage.setItem("loginSuccess", "Yes");
+            sessionStorage.setItem("loginSuccess", "Yes");
         } else {
             alert("Loging failed");
-            localStorage.setItem("loginSuccess", "No");
+            sessionStorage.setItem("loginSuccess", "No");
         }
     }
     render() {
