@@ -30,7 +30,7 @@ class Bags extends Component {
             <div>
                 {this.state.designImagesList !== undefined && this.state.designImagesList.length > 0 ? 
                     this.state.designImagesList.map(item => <div style={{margin: "5px", float: "left"}}>
-                        <td><img style={{height: "300px", width: "400px"}} src={item} /></td>
+                        <td><img style={{height: "250px", width: "400px"}} src={item} /></td>
                     </div>)
                 : null}
             </div>

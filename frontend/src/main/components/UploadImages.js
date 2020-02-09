@@ -102,7 +102,6 @@ class UploadImages extends Component {
         this.loadDesignImages();
     }
     callBackDeleteDesignImages() {
-        alert("callBackDeleteDesignImages")
         this.loadDesignImages();
     }
     onDesignFileChange(files) {

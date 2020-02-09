@@ -98,3 +98,9 @@ body {
 .serviceP {
   padding-left: 20px;
 }
+.appLabel {
+  color: #ffffff;
+  margin-right: 10px;
+  font-weight: 550;
+  line-height: 30px;
+}

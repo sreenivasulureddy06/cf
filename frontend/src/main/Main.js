@@ -5,6 +5,8 @@ import Kids from "../main/components/Kids.js";
 import Contact from "../main/components/Contact.js";
 import Upload from "../main/components/UploadImages.js";
 import Login from "../main/components/Login.js";
+import SubmitRequest from "../main/components/SubmitRequest.js";
+import AppLogo from "../main/images/applogo.png";
 
 import {
     BrowserRouter as Router,
@@ -27,10 +29,13 @@ class Main extends Component {
         }
         return(
             <Router>
-                <div align="right" className="menuContainer">
+                <div className="menuContainer">
                     <table>
                         <tbody>
                             <tr>
+                                <td>
+                                    <img style={{height: "36px", width: "200px"}} src={AppLogo} />
+                                </td>
                                 <td className="headertd">
                                     <Link to="/">Home</Link>
                                 </td>
@@ -55,15 +60,24 @@ class Main extends Component {
                         </tbody>
                     </table>
                 </div>
-                <div className="routeContainer">
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/products" component={Bags} />
-                        <Route path="/services" component={Kids} />
-                        <Route path="/contact" component={Contact} />
-                        <Route path="/upload" component={Upload} />
-                        <Route path="/login" component={Login} />
-                    </Switch>
+                <div>
+                    <div style={{width: "15%", float: "left"}}>
+                        &nbsp;
+                    </div>
+                    <div style={{width: "69%", float: "left"}} className="routeContainer">
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <Route path="/products" component={Bags} />
+                            <Route path="/services" component={Kids} />
+                            <Route path="/contact" component={Contact} />
+                            <Route path="/upload" component={Upload} />
+                            <Route path="/login" component={Login} />
+                        </Switch>
+                    </div>
+                    <div style={{width: "15%", float: "left"}}>
+                        <SubmitRequest 
+                        />
+                    </div>
                 </div>
             </Router>
         )
