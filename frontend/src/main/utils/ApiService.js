@@ -1,22 +1,27 @@
 import * as HomeUtils from "../utils/HomeUtils.js";
 
-export function get(url) {
-    const response = fetch(url, {
+export async function get(url) {
+    let response = await fetch(url, {
         method: "GET",
         headers: {
             "Accept": "application/json"
         }
-    }).then(response => {
-        return response.json();
-    }).then(data => {
+    });
+    let data = await response.json();
+    return data;
+}
+export function listAllImage(url) {
+    get(url).then(data=>{
         HomeUtils.loadAllImages(data);
     });
 }
-export function listAllImage(url) {
-    get(url);
+export function listAllDesignImage(url) {
+    get(url).then(data=>{
+        HomeUtils.loadAllDesignImages(data);
+    });
 }
-export function postMultiPartFile(url, body) {
-    fetch(url, {
+export async function postMultiPartFile(url, body) {
+    let response = await fetch(url, {
         mode: 'no-cors',
         method: "POST",
         headers: {
@@ -25,29 +30,35 @@ export function postMultiPartFile(url, body) {
             Accept: "application/json"
         },
         body: body
-        }).then(function (res) {
-            HomeUtils.uploadImages();
-        }, function (e) {
-            alert("Error submitting form!"+ e);
-    });
+        });
 }
-export function post(url, body) {
-    fetch(url, {
+export async function post(url, body) {
+    let response = await fetch(url, {
         method: "POST",
         headers: {
             "Accept": "application/json",
             "Content-type": "application/json"
         },
         body: body
-        }).then(function (res) {
-            HomeUtils.deleteImages();
-        }, function (e) {
-            alert("Error submitting form!"+ e);
-    });
+        });
 }
 export function uploadImages(url, body) {
-    postMultiPartFile(url, body);
+    postMultiPartFile(url, body).then(response=>{
+        HomeUtils.uploadImages();
+    });
 }
 export function deleteImages(url, body) {
-    post(url, body);
+    post(url, body).then(res=>{
+        HomeUtils.deleteImages();
+    });
+}
+export function deleteDesignImages(url, body) {
+    post(url, body).then(res=>{
+        HomeUtils.deleteDesignImages();
+    });
+}
+export function uploadDesignImages(url, body) {
+    postMultiPartFile(url, body).then(response=>{
+        HomeUtils.uploadDesignImages();
+    });
 }

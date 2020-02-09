@@ -35,7 +35,7 @@ class Main extends Component {
                                     <Link to="/">Home</Link>
                                 </td>
                                 <td className="headertd">
-                                    <Link to="/products">Products</Link>
+                                    <Link to="/products">Designs</Link>
                                 </td>
                                 <td className="headertd">
                                     <Link to="/services">Services</Link>

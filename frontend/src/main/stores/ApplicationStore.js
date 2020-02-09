@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import Dispatcer from "../stores/Dispatcher.js";
 
 let imagesList = {}
+let designImageList = {}
 class ApplicationStore extends EventEmitter {
     constructor(props) {
         super(props);
@@ -16,6 +17,9 @@ class ApplicationStore extends EventEmitter {
     }
     getAllImages() {
         return imagesList.images;
+    }
+    getAllDesignImages() {
+        return designImageList.images;
     }
     emitChange(eventName) {
         this.emit(eventName);
@@ -35,6 +39,13 @@ class ApplicationStore extends EventEmitter {
                 break;
             case 'DELETE_IMAGES':
             break;
+            case 'UPLOAD_DESIGN_IMAGES':
+                break;
+            case 'LIST_ALL_DESIGN_IMAGES':
+                designImageList = action.payload.data
+                break;
+            case 'DELETE_DESIGN_IMAGES':
+                break;
         }
         let eventName = 'STORE_' + action.type;
         this.emitChange(eventName);

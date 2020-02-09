@@ -62,7 +62,7 @@ body {
   margin-right: 5px;
 }
 .formLabel {
-  color: #efe4e4;
+  color: #ffffff;
   margin-right: 10px;
   font-weight: 550;
   float: left;
@@ -79,7 +79,7 @@ body {
   margin-bottom: 2px;
 }
 .loginHeader {
-  color: #efe4e4;
+  color: #ffffff;
   font-weight: 800;
   font-size: 20px;
   padding-top: 20px;
@@ -89,4 +89,12 @@ body {
   height: 35px;
   color: #145cd6;
   font-weight: 550;
+}
+.contactInfo {
+  color: #ffffff;
+  line-height: 20px;
+  font-weight: 550;
+}
+.serviceP {
+  padding-left: 20px;
 }
