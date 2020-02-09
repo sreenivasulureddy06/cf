@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #ff5b1e;
+}
+.headertd {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+  color: #095be8;
+  background-color: white;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.headertd a {
+  text-decoration: none !important;
+  color: #145cd6;
+}
+.menuContainer {
+  background-color: mediumblue;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.slide-container {
+  width: 80%;
+  margin: auto; 
+  padding-top: 10px;
+}
+.each-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 350px;
+}
+.each-slide img { 
+  width: 80%;
+}
+
+.each-slide span {
+  padding: 20px;
+  font-size: 20px;
+  background: #4d4b4b;
+  text-align: center;
+}
+
+.each-fade {
+  display: flex;
+}
+.file-component {
+  border: 1px solid #145cd6;
+  columns: #145cd6;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+}
+.routeContainer {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.formLabel {
+  color: #efe4e4;
+  margin-right: 10px;
+  font-weight: 550;
+  float: left;
+  width: 45%;
+  line-height: 30px;
+  text-align: right;
+}
+.formField {
+  height: 25px;
+}
+.formFieldContainer {
+  float: left;
+  width: 45%;
+  margin-bottom: 2px;
+}
+.loginHeader {
+  color: #efe4e4;
+  font-weight: 800;
+  font-size: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.formButton {
+  height: 35px;
+  color: #145cd6;
+  font-weight: 550;
+}
