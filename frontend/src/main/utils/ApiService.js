@@ -62,3 +62,13 @@ export function uploadDesignImages(url, body) {
         HomeUtils.uploadDesignImages();
     });
 }
+export function submitRequest(url, body) {
+    post(url, body).then(response => {
+        alert("Thank you for submission of request, we will reach out you soon.");
+    });
+}
+export function listSubmissions(url) {
+    get(url).then(data=>{
+        HomeUtils.listSubmissions(data);
+    });
+}

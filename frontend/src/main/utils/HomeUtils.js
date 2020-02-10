@@ -58,3 +58,13 @@ export function deleteDesignImages() {
         payload: payload
     });
 }
+export function listSubmissions(data) {
+    let type = "LIST_ALL_SUBMISSIONS";
+    let payload = {
+        data: data
+    };
+    Dispatcher.dispatch({
+        type: type,
+        payload: payload
+    });
+}

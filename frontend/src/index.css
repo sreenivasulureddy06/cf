@@ -66,17 +66,15 @@ body {
   margin-right: 10px;
   font-weight: 550;
   float: left;
-  width: 45%;
   line-height: 30px;
-  text-align: right;
+  padding-left: 1px;
+  width: 100%;
 }
 .formField {
   height: 25px;
 }
 .formFieldContainer {
-  float: left;
-  width: 45%;
-  margin-bottom: 2px;
+  margin-bottom: 0px;
 }
 .loginHeader {
   color: #ffffff;
@@ -103,4 +101,40 @@ body {
   margin-right: 10px;
   font-weight: 550;
   line-height: 30px;
+}
+.cfGridTr {
+  border-bottom: 1px solid #ccc;
+}
+.cfGridTh {
+  padding: 10px;
+  color: #ffffff;
+  font-weight: 550;
+  text-align: left;
+  border-bottom: 1px solid #ca5050;
+  box-shadow: 2px 0px 0px 0px #ca5050;
+  background-color: #5a5959;
+}
+.cfGridTd {
+  padding: 10px;
+  color: #ffffff;
+  text-align: left;
+  border-bottom: 1px solid #ca5050;
+  box-shadow: 2px 0px 0px 0px #ca5050;
+}
+.grid-title {
+  color: #ffffff;
+  margin-right: 10px;
+  font-weight: 550;
+  line-height: 40px;
+  background-color: #0707f3;
+}
+.grid-div {
+  /*border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;*/
+  box-shadow: 1px 1px 2px 2px #615e5e;
+}
+.required-text {
+  color: red;
+  padding-left: 2px;
 }

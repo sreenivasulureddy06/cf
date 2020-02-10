@@ -14,10 +14,21 @@ class TextAreaField extends Component {
     render() {
         return(
             <div>
-                {this.props.label !== undefined ? <div className="formLabel">{this.props.label}</div> : null}
-                <div className="formFieldContainer">
-                    <textarea style={{height: "90px"}} className="formField" id={this.props.id} rows="10" cols={this.props.cols} onChange={this.onChange} />
-                </div>
+                <table>
+                    <tbody>
+                        {this.props.label !== undefined ? 
+                            <tr className="formLabel">
+                                <td>
+                                    {this.props.label} {this.props.required === true ? <span className="required-text ">*</span>:null}
+                                </td>
+                            </tr> : null}
+                        <tr className="formFieldContainer">
+                            <td>
+                                <textarea style={{height: "90px"}} className="formField" id={this.props.id} rows="10" cols={this.props.cols} value={this.props.value} onChange={this.onChange} />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         )
     }

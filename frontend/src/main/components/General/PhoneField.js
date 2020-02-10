@@ -20,13 +20,26 @@ class PhoneField extends Component {
     render() {
         return(
             <div>
-                {this.props.label !== undefined ? <div className="formLabel">{this.props.label}</div> : null}
-                <div className="formFieldContainer">
-                    <input id={this.props.id} className="formField" type="text" value={this.props.value} onChange={this.onChange} />
-                </div>
-                <div style={{float: "left", color: "red"}}>
-                    {this.state.error}
-                </div>
+                <table>
+                    <tbody>
+                        {this.props.label !== undefined ? 
+                            <tr className="formLabel">
+                                <td>
+                                    {this.props.label} {this.props.required === true ? <span className="required-text ">*</span>:null}
+                                </td>
+                            </tr> : null}
+                        <tr className="formFieldContainer">
+                            <td>
+                                <input id={this.props.id} className="formField" type="text" value={this.props.value} onChange={this.onChange} />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style={{color: "red"}}>
+                                {this.state.error}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         )
     }

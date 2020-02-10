@@ -3,6 +3,7 @@ import Dispatcer from "../stores/Dispatcher.js";
 
 let imagesList = {}
 let designImageList = {}
+let requestsList = {}
 class ApplicationStore extends EventEmitter {
     constructor(props) {
         super(props);
@@ -14,12 +15,16 @@ class ApplicationStore extends EventEmitter {
         this.addChangeListener = this.addChangeListener.bind(this);
         this.removeChangeListener = this.removeChangeListener.bind(this);
         this.getAllImages = this.getAllImages.bind(this);
+        this.listAllRequest = this.listAllRequest.bind(this);
     }
     getAllImages() {
         return imagesList.images;
     }
     getAllDesignImages() {
         return designImageList.images;
+    }
+    listAllRequest() {
+        return requestsList.requests;
     }
     emitChange(eventName) {
         this.emit(eventName);
@@ -42,9 +47,12 @@ class ApplicationStore extends EventEmitter {
             case 'UPLOAD_DESIGN_IMAGES':
                 break;
             case 'LIST_ALL_DESIGN_IMAGES':
-                designImageList = action.payload.data
+                designImageList = action.payload.data;
                 break;
             case 'DELETE_DESIGN_IMAGES':
+                break;
+            case 'LIST_ALL_SUBMISSIONS':
+                requestsList = action.payload.data;
                 break;
         }
         let eventName = 'STORE_' + action.type;

@@ -7,6 +7,10 @@ import Upload from "../main/components/UploadImages.js";
 import Login from "../main/components/Login.js";
 import SubmitRequest from "../main/components/SubmitRequest.js";
 import AppLogo from "../main/images/applogo.png";
+import DesignList from "../main/components/DesignsList.js";
+import Submits from "../main/components/SubmitRequests.js";
+//import "react-responsive-carousel/lib/styles/carousel.min.css";
+//import { Carousel } from 'react-responsive-carousel';
 
 import {
     BrowserRouter as Router,
@@ -53,6 +57,11 @@ class Main extends Component {
                                         <Link to="/upload">Images</Link>
                                     </td>
                                 )}
+                                {enableUploadImages && (
+                                    <td className="headertd">
+                                        <Link to="/requestlist">Submissions</Link>
+                                    </td>
+                                )}
                                 <td className="headertd">
                                     <Link to="/login">Login</Link>
                                 </td>
@@ -61,10 +70,10 @@ class Main extends Component {
                     </table>
                 </div>
                 <div>
-                    <div style={{width: "15%", float: "left"}}>
-                        &nbsp;
+                    <div style={{width: "15.5%", float: "left", borderRight: "2px solid #ccc"}}>
+                        <DesignList />
                     </div>
-                    <div style={{width: "67%", float: "left", borderLeft: "2px solid #ccc", paddingLeft: "10px"}} className="routeContainer">
+                    <div style={{width: "66%", float: "left", paddingLeft: "10px"}} className="routeContainer">
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route path="/products" component={Bags} />
@@ -72,6 +81,7 @@ class Main extends Component {
                             <Route path="/contact" component={Contact} />
                             <Route path="/upload" component={Upload} />
                             <Route path="/login" component={Login} />
+                            <Route path="/requestlist" component={Submits} />
                         </Switch>
                     </div>
                     <div style={{width: "15%", float: "left", borderLeft: "2px solid #ccc"}}>
