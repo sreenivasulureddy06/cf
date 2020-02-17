@@ -9,12 +9,15 @@ var baseURL = "http://www.clothsfactory.in";
 var local = "http://localhost:9001";
 baseURL = local;
 
+let homeFileNames = {};
+let designsFileNames = {};
+
 class UploadImages extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            imagesList: [],
-            designImagesList: []
+            homeImages: undefined,
+            designs: undefined
         }
         this.onFileChange = this.onFileChange.bind(this);
         this.loadPage = this.loadPage.bind(this);
@@ -29,6 +32,22 @@ class UploadImages extends Component {
         this.callBackUploadDesignImages = this.callBackUploadDesignImages.bind(this);
         this.callBackDeleteDesignImages = this.callBackDeleteDesignImages.bind(this);
         this.deleteDesignImage = this.deleteDesignImage.bind(this);
+        this.importAllDesigns = this.importAllDesigns.bind(this);
+        this.importAll = this.importAll.bind(this);
+    }
+    importAllDesigns(r) {
+        let keys = r.keys();
+        for(var i=0;i<keys.length;i++) {
+            designsFileNames[i]=keys[i];
+        }
+        return keys.map(r);
+    }
+    importAll(r) {
+        let keys = r.keys();
+        for(var i=0;i<keys.length;i++) {
+            homeFileNames[i]=keys[i];
+        }
+        return keys.map(r);
     }
     componentDidMount() {
         AppStore.addChangeListener('STORE_LIST_ALL_IMAGES', this.refreshGrid);
@@ -49,6 +68,7 @@ class UploadImages extends Component {
         AppStore.removeChangeListener('STORE_DELETE_DESIGN_IMAGES', this.callBackDeleteDesignImages);
     }
     deleteImage(selected) {
+        selected = homeFileNames[selected];
         let index = selected.lastIndexOf("/");
         let fileName = selected.substr(index+1, selected.length);
         let fielnames = [];
@@ -59,6 +79,7 @@ class UploadImages extends Component {
         this.submitDeleteion(request);
     }
     deleteDesignImage(selected) {
+        selected = designsFileNames[selected];
         let index = selected.lastIndexOf("/");
         let fileName = selected.substr(index+1, selected.length);
         let fielnames = [];
@@ -81,10 +102,14 @@ class UploadImages extends Component {
         ApiService.uploadImages(Enpoints.UPLOAD_IMAGES, data);
     }
     loadPage() {
-        let data = ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES);
+        //let data = ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES);
+        let homeImages = this.importAll(require.context('../../../public/appimage', true, /\.(png|jpe?g|svg)$/));
+        this.setState({homeImages: homeImages});
     }
     loadDesignImages() {
-        ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES);
+        //ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES);
+        let designs = this.importAllDesigns(require.context('../../../public/designs', true, /\.(png|jpe?g|svg)$/));
+        this.setState({designs: designs});
     }
     refreshGrid() {
         this.setState({imagesList: AppStore.getAllImages()});
@@ -94,9 +119,11 @@ class UploadImages extends Component {
     }
     callBackUploadImages() {
         this.loadPage();
+        window.location.reload();
     }
     callBackDeleteImages() {
         this.loadPage();
+        window.location.reload();
     }
     callBackUploadDesignImages() {
         this.loadDesignImages();
@@ -121,12 +148,12 @@ class UploadImages extends Component {
                             label="Upload Home File"
                         />
                     </div>
-                    {this.state.imagesList !== undefined && this.state.imagesList.length > 0 ? 
+                    {this.state.homeImages !== undefined && this.state.homeImages.length > 0 ? 
                         <div style={{paddingTop: "5px"}}>
                             <table>
-                                {this.state.imagesList.map(item => <tr style={{marginTop: "2px"}}>
-                                        <td><img style={{height: "100px", width: "200px"}} src={item} /></td>
-                                        <td onClick={(event)=>{event = this.deleteImage(item)}}><img style={{height: "40px", width: "40px"}} src={trash} /></td>
+                                {Object.keys(this.state.homeImages).map((keyname, keyindex)=> <tr style={{marginTop: "2px"}}>
+                                        <td><img style={{height: "100px", width: "200px"}} src={this.state.homeImages[keyindex]} /></td>
+                                        <td onClick={(event)=>{event = this.deleteImage(keyindex)}}><img style={{height: "40px", width: "40px"}} src={trash} /></td>
                                     </tr>)}
                             </table>
                         </div>
@@ -139,12 +166,12 @@ class UploadImages extends Component {
                             label="Upload Design File"
                         />
                     </div>
-                    {this.state.designImagesList !== undefined && this.state.designImagesList.length > 0 ? 
+                    {this.state.designs !== undefined && this.state.designs.length > 0 ? 
                         <div style={{paddingTop: "5px"}}>
                             <table>
-                                {this.state.designImagesList.map(item => <tr style={{marginTop: "2px"}}>
-                                        <td><img style={{height: "100px", width: "200px"}} src={item} /></td>
-                                        <td onClick={(event)=>{event = this.deleteDesignImage(item)}}><img style={{height: "40px", width: "40px"}} src={trash} /></td>
+                                {Object.keys(this.state.designs).map((keyname, keyindex)=> <tr style={{marginTop: "2px"}}>
+                                        <td><img style={{height: "100px", width: "200px"}} src={this.state.designs[keyindex]} /></td>
+                                        <td onClick={(event)=>{event = this.deleteDesignImage(keyindex)}}><img style={{height: "40px", width: "40px"}} src={trash} /></td>
                                     </tr>)}
                             </table>
                         </div>

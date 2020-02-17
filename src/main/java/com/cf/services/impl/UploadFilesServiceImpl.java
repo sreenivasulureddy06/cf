@@ -21,8 +21,8 @@ import com.cf.services.UploadFilesService;
 @RestController
 public class UploadFilesServiceImpl implements UploadFilesService {
 	
-	public static String imagesPath = "\\target\\classes\\public\\static\\appimage";
-	public static String designImagesPath = "\\target\\classes\\public\\static\\designs";
+	public static String imagesPath = "\\cf-1.0.0\\BOOT-INF\\classes\\public\\appimage";
+	public static String designImagesPath = "\\cf-1.0.0\\BOOT-INF\\classes\\public\\designs";
 	public static String uploadingDir = System.getProperty("user.dir") + imagesPath;
 	public static String uploadingDesignDir = System.getProperty("user.dir") + designImagesPath;
 
@@ -120,11 +120,13 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 		List<String> list = new ArrayList<>();
 		File file = new File(filePath);
 		File[] fileList = file.listFiles();
-		for(File f : fileList){
-			System.out.println(imagesPath+"/"+f.getName());
-			list.add(uiPath+"/"+f.getName());
+		if(null != fileList) {
+			for(File f : fileList){
+				System.out.println(imagesPath+"/"+f.getName());
+				list.add(uiPath+"/"+f.getName());
+			}
+			response.setImages(list);
 		}
-		response.setImages(list);
 		return response;
 	}
 

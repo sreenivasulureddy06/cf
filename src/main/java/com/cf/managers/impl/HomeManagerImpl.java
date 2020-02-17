@@ -17,7 +17,7 @@ import com.cf.resquest.SubmitRequest;
 
 public class HomeManagerImpl implements HomeManager {
 
-	public static String requestPath = "\\target\\classes\\public\\static\\request";
+	public static String requestPath = "\\cf-1.0.0\\BOOT-INF\\classes\\public\\request";
 	public static String requestFilePath = System.getProperty("user.dir") + requestPath+"/request.txt";
 	
 	@Override
