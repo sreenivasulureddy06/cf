@@ -32,20 +32,19 @@ class Home extends Component {
 		this.loadPage();
 	}
 	loadPage() {
-		//ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES);
-		let images = this.importAll(require.context('../../../public/appimage', true, /\.(png|jpe?g|svg)$/));
-		this.setState({images: images});
+		ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES);
+		
 	}
 	refreshGrid() {
-        this.loadPage();
+		this.setState({images: AppStore.getAllImages()});
     }
 	render() {
 		return (
 			<div className="slide-container">
 				{this.state.images !== undefined? 
 					<Slide {...properties}>
-					{Object.keys(this.state.images).map((keyname, keyindex)=> <div className="each-slide">
-						<img src={this.state.images[keyindex]} />
+					{this.state.images.map(item => <div className="each-slide">
+						<img src={`data:${item.mimeType};base64,${item.data}`} />
 					</div>)}
 				</Slide>
 				: null}

@@ -7,15 +7,11 @@ class Bags extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            designs: undefined
+            designImagesList: undefined
         }
         this.loadDesignImages = this.loadDesignImages.bind(this);
         this.refreshDesignGrid = this.refreshDesignGrid.bind(this);
-        this.importAll = this.importAll.bind(this);
     }
-    importAll(r) {
-        return r.keys().map(r);
-    } 
     componentDidMount() {
         AppStore.addChangeListener('STORE_LIST_ALL_DESIGN_IMAGES', this.refreshDesignGrid);
         this.loadDesignImages();
@@ -24,9 +20,7 @@ class Bags extends Component {
         AppStore.removeListener('STORE_LIST_ALL_DESIGN_IMAGES', this.refreshDesignGrid);
     }
     loadDesignImages() {
-        //ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES);
-        let designs = this.importAll(require.context('../../../public/designs', true, /\.(png|jpe?g|svg)$/));
-        this.setState({designs: designs});
+        ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES);
     }
     refreshDesignGrid() {
         this.setState({designImagesList: AppStore.getAllDesignImages()});
@@ -34,9 +28,9 @@ class Bags extends Component {
     render() {
         return(
             <div>
-                {this.state.designs !== undefined && this.state.designs.length > 0 ? 
-                    Object.keys(this.state.designs).map((keyname, keyindex)=> <div style={{margin: "5px", float: "left"}}>
-                        <td><img style={{height: "250px", width: "400px"}} src={this.state.designs[keyindex]} /></td>
+                {this.state.designImagesList !== undefined && this.state.designImagesList.length > 0 ? 
+                    this.state.designImagesList.map(item=> <div style={{margin: "5px", float: "left"}}>
+                        <img style={{height: "250px", width: "265px"}} src={`data:${item.mimeType};base64,${item.data}`} />
                     </div>)
                 : null}
             </div>

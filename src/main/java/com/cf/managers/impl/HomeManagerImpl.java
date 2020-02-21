@@ -1,6 +1,9 @@
 package com.cf.managers.impl;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.StringUtils;
 
 import com.cf.managers.manager.HomeManager;
@@ -17,8 +21,7 @@ import com.cf.resquest.SubmitRequest;
 
 public class HomeManagerImpl implements HomeManager {
 
-	public static String requestPath = "\\cf-1.0.0\\BOOT-INF\\classes\\public\\request";
-	public static String requestFilePath = System.getProperty("user.dir") + requestPath+"/request.txt";
+	String userDir = System.getProperty("user.dir");
 	
 	@Override
 	public String getHomeContent() {
@@ -36,7 +39,9 @@ public class HomeManagerImpl implements HomeManager {
 		sb.append(emptyCheck(request.getEmail()));
 		sb.append(" @@### ");
 		sb.append(emptyCheck(request.getDescription()));
-		try (FileWriter f = new FileWriter(requestFilePath, true);
+		String filePath = userDir + "/request";
+		File file = new File(filePath+"/request.txt");
+		try (FileWriter f = new FileWriter(file.getPath(), true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
             p.println(sb.toString());
@@ -50,7 +55,16 @@ public class HomeManagerImpl implements HomeManager {
 	public SubmitRespose requestsList() {
 		SubmitRespose response = new SubmitRespose();
 		try {
-			List<String> allLines = Files.readAllLines(Paths.get(requestFilePath));
+			String filePath = userDir + "/request";
+			createDirectory(filePath);
+			File file = new File(filePath+"/request.txt");
+			List<String> allLines = new ArrayList<>();
+			try(BufferedReader br  = new BufferedReader(new FileReader(file))){
+				String strLine;
+				while((strLine = br.readLine()) != null){
+					allLines.add(strLine);
+				}
+			}
 			SubmitRequest req = null;
 			List<SubmitRequest> list = new ArrayList<>();
 			for (String line : allLines) {
@@ -74,6 +88,13 @@ public class HomeManagerImpl implements HomeManager {
 			return string;
 		}
 		return "";
+	}
+	
+	private void createDirectory(String filePath) throws IOException {
+		File dir = new File(filePath);
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
 	}
 
 }

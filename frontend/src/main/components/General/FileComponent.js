@@ -12,6 +12,7 @@ class FileComponent extends Component {
         return(
             <div className="file-component">
                 <Files
+                    id={this.props.id}
                     className='files-dropzone'
                     onChange={this.props.onChange}
                     onError={this.props.onError}

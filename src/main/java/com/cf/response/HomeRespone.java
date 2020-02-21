@@ -3,14 +3,16 @@ package com.cf.response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeRespone {
-	private List<String> images = new ArrayList<String>();
+import com.cf.resquest.ImageContainer;
 
-	public List<String> getImages() {
+public class HomeRespone {
+	private List<ImageContainer> images = new ArrayList<ImageContainer>();
+
+	public List<ImageContainer> getImages() {
 		return images;
 	}
 
-	public void setImages(List<String> images) {
+	public void setImages(List<ImageContainer> images) {
 		this.images = images;
 	}
 	
