@@ -135,7 +135,7 @@ body {
   box-shadow: 1px 1px 2px 2px #615e5e;
 }
 .required-text {
-  color: red;
+  color: #8a1f1f;
   padding-left: 2px;
 }
 .pagination-page-size {

@@ -71,6 +71,7 @@ export function uploadDesignImages(url, body) {
 export function submitRequest(url, body) {
     post(url, body).then(response => {
         alert("Thank you for submission of request, we will reach out you soon.");
+        window.location.reload();
     });
 }
 export function listSubmissions(url) {
