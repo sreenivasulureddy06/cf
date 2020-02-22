@@ -32,7 +32,11 @@ class Home extends Component {
 		this.loadPage();
 	}
 	loadPage() {
-		ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES);
+		let request = {
+
+		}
+		let postData = JSON.stringify(request);
+		ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES, postData);
 		
 	}
 	refreshGrid() {

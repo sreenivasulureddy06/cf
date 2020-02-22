@@ -138,3 +138,28 @@ body {
   color: red;
   padding-left: 2px;
 }
+.pagination-page-size {
+  color: #ffffff;
+  width: 30%;
+}
+.pagination-div {
+  float: left;
+  border: 1px solid #d1d0d0;
+  width: 100%;
+  box-shadow: 0px 1px 0px 0px #d1d0d0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.pagination-arrow {
+  color: #ffffff;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.pagination-page {
+  color: #ffffff;
+  width: 15%;
+}

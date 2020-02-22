@@ -82,16 +82,24 @@ class UploadImages extends Component {
         ApiService.uploadImages(Enpoints.UPLOAD_IMAGES, data);
     }
     loadPage() {
-        let data = ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES);
+        let request = {
+
+        }
+        let postData = JSON.stringify(request);
+        ApiService.listAllImage(Enpoints.LIST_ALL_IMAGES, postData);
     }
     loadDesignImages() {
-        ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES);
+        let request = {
+
+		}
+		let postData = JSON.stringify(request);
+        ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES, postData);
     }
     refreshGrid() {
         this.setState({imagesList: AppStore.getAllImages()});
     }
     refreshDesignGrid() {
-        this.setState({designImagesList: AppStore.getAllDesignImages()});
+        this.setState({designImagesList: AppStore.getAllDesignImages().images});
     }
     callBackUploadImages() {
         this.loadPage();

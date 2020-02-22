@@ -10,13 +10,13 @@ export async function get(url) {
     let data = await response.json();
     return data;
 }
-export function listAllImage(url) {
-    get(url).then(data=>{
+export function listAllImage(url, body) {
+    post(url, body).then(data=>{
         HomeUtils.loadAllImages(data);
     });
 }
-export function listAllDesignImage(url) {
-    get(url).then(data=>{
+export function listAllDesignImage(url, body) {
+    post(url, body).then(data=>{
         HomeUtils.loadAllDesignImages(data);
     });
 }
@@ -40,7 +40,13 @@ export async function post(url, body) {
             "Content-type": "application/json"
         },
         body: body
-        });
+    });
+    let data = {};
+    if(response !== null && response !== undefined) {
+        data = await response.json();
+        return data;
+    }
+    return data;
 }
 export function uploadImages(url, body) {
     postMultiPartFile(url, body).then(response=>{

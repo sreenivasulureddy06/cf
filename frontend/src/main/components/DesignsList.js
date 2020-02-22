@@ -20,10 +20,14 @@ class DesignsList extends Component {
         AppStore.removeChangeListener('STORE_LIST_ALL_DESIGN_IMAGES', this.refreshDesignGrid);
     }
     loadDesignImages() {
-        ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES);
+        let request = {
+
+		}
+		let postData = JSON.stringify(request);
+        ApiService.listAllDesignImage(Enpoints.LIST_ALL_DESIGN_IMAGES, postData);
     }
     refreshDesignGrid() {
-        this.setState({designImagesList: AppStore.getAllDesignImages()});
+        this.setState({designImagesList: AppStore.getAllDesignImages().images});
     }
     render() {
         return(

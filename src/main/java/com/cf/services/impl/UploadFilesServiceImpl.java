@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
@@ -21,6 +22,7 @@ import com.cf.constants.Constants;
 import com.cf.response.HomeRespone;
 import com.cf.resquest.HomeRequest;
 import com.cf.resquest.ImageContainer;
+import com.cf.resquest.Pagination;
 import com.cf.services.UploadFilesService;
 
 @RestController
@@ -50,10 +52,10 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 		return Constants.SUCCESS;
 	}
 	
-	@GetMapping(value = "/list/images", produces={"application/json"})
+	@PostMapping(value = "/list/images", produces={"application/json"})
 	@CrossOrigin(origins = "http://localhost:3000")
-	public HomeRespone listImages() {
-		HomeRespone response = listFiles("appimage");
+	public HomeRespone listImages(@RequestBody HomeRequest request) {
+		HomeRespone response = listFiles("appimage", request);
 		return response;
 	}	
 	
@@ -83,7 +85,7 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return listFiles("appimage");
+		return listFiles("appimage", request);
 	}
 	
 	@PostMapping("/upload/design/images")
@@ -101,10 +103,10 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 		return Constants.SUCCESS;
 	}
 	
-	@GetMapping(value = "/list/design/images", produces={"application/json"})
+	@PostMapping(value = "/list/design/images", produces={"application/json"})
 	@CrossOrigin(origins = "http://localhost:3000")
-	public HomeRespone listDesignImages() {
-		HomeRespone response = listFiles("designs");
+	public HomeRespone listDesignImages(@RequestBody HomeRequest request) {
+		HomeRespone response = listFiles("designs", request);
 		return response;
 	}
 	
@@ -134,11 +136,25 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return listFiles("designs");
+		return listFiles("designs", request);
 	}
 	
-	private HomeRespone listFiles(String uiPath) {
+	private HomeRespone listFiles(String uiPath, HomeRequest request) {
 		HomeRespone response = new HomeRespone();
+		int pageSize = 10;
+		int pageNumber = 1;
+		int totalCount = 0;
+		int startIndex = 1;
+		int endIndex = startIndex;
+		int noOfColumns = 1;
+		Pagination pagination = request.getPagination();
+		if(null != pagination) {
+			pageSize = pagination.getPageSize();
+			pageNumber = pagination.getPageNumber();
+			noOfColumns = pagination.getNoOfColumn();
+			startIndex = (pageNumber - 1) * (pageSize * noOfColumns);
+			endIndex = startIndex + (pageSize * noOfColumns);
+		}
 		List<ImageContainer> list = new ArrayList<>();
 		File file;
 		try {
@@ -147,7 +163,20 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 			file = new File(folderPath);
 			File[] fileList = file.listFiles();
 			if(null != fileList) {
-				for(File f : fileList){
+				File[] result;
+				totalCount = fileList.length;
+				if(startIndex >= totalCount) {
+					startIndex = totalCount--;
+				}
+				if(endIndex >= totalCount) {
+					endIndex = totalCount--;
+				}
+				if(null != pagination) {
+					result = Arrays.copyOfRange(fileList, startIndex, endIndex);
+				} else {
+					result = fileList;
+				}
+				for(File f : result){
 					InputStream is = new FileInputStream(f);
 					ByteArrayOutputStream bao = new ByteArrayOutputStream();
 					try {
@@ -172,6 +201,13 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if(null != pagination) {
+			pagination.setPageNumber(pageNumber);
+			pagination.setPageSize(pageSize);
+			totalCount = totalCount/(noOfColumns*pageSize);
+			pagination.setTotalCount(totalCount+1);
+			response.setPagination(pagination);
 		}
 		return response;
 	}
