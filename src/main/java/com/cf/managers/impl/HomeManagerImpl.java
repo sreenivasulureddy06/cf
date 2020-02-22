@@ -41,10 +41,8 @@ public class HomeManagerImpl implements HomeManager {
 		sb.append(emptyCheck(request.getDescription()));
 		String filePath = userDir + "/request";
 		File file = new File(filePath+"/request.txt");
-		try (FileWriter f = new FileWriter(file.getPath(), true);
-                BufferedWriter b = new BufferedWriter(f);
-                PrintWriter p = new PrintWriter(b);) {
-            p.println(sb.toString());
+		try(PrintWriter output = new PrintWriter(new FileWriter(file.getPath(),true))) {
+			output.printf("%s\r\n", sb.toString());
         } catch (IOException ie) {
             ie.printStackTrace();
         }
@@ -70,11 +68,13 @@ public class HomeManagerImpl implements HomeManager {
 			for (String line : allLines) {
 				req = new SubmitRequest();
 				String[] l = line.split("@@###");
-				req.setFirstName(l[0]);
-				req.setPhoneNumber(l[1]);
-				req.setEmail(l[2]);
-				req.setDescription(l[3]);
-				list.add(req);
+				if(l.length == 4) {
+					req.setFirstName(l[0]);
+					req.setPhoneNumber(l[1]);
+					req.setEmail(l[2]);
+					req.setDescription(l[3]);
+					list.add(req);
+				}
 			}
 			response.setRequests(list);
 		} catch (Exception e) {

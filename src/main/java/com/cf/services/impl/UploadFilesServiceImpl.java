@@ -158,7 +158,6 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 		List<ImageContainer> list = new ArrayList<>();
 		File file;
 		try {
-			System.out.println("User Dir => "+userDir);
 			String folderPath = userDir+"/"+uiPath;
 			file = new File(folderPath);
 			File[] fileList = file.listFiles();

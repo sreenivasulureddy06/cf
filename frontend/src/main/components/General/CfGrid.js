@@ -21,7 +21,7 @@ class CfGrid extends Component {
                                 <th style={{width: ""+item.width+"%"}} className="cfGridTh">{item.label}</th>
                             )}
                         </tr>
-                        {this.props.rowData !== undefined && this.props.rowData.length > 0 ? this.props.rowData.map(item=>
+                        {this.props.rowData !== null && this.props.rowData !== undefined && this.props.rowData.length > 0 ? this.props.rowData.map(item=>
                             <tr>
                                 {this.props.headers.map(header =>
                                     <td style={{width: ""+header.width+"%"}} className="cfGridTd">{item[header.key]}</td>
