@@ -6,5 +6,5 @@ import com.cf.resquest.SubmitRequest;
 public interface HomeManager {
 	public String getHomeContent();
 	public SubmitRespose submitRequest(SubmitRequest request);
-	public SubmitRespose requestsList();
+	public SubmitRespose requestsList(SubmitRequest request);
 }

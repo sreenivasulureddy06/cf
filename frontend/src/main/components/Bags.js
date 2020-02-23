@@ -10,10 +10,10 @@ class Bags extends Component {
         this.state = {
             designImagesList: undefined,
             pagination: {
-                pageSize: 2,
+                pageSize: 3,
                 pageNumber: 1,
                 totalCount: 1,
-                noOfColumn: 3
+                noOfPages: 1
             }
         }
         this.loadDesignImages = this.loadDesignImages.bind(this);

@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,14 +145,14 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 		int totalCount = 0;
 		int startIndex = 1;
 		int endIndex = startIndex;
-		int noOfColumns = 1;
+		int noOfPages = 1;
 		Pagination pagination = request.getPagination();
 		if(null != pagination) {
 			pageSize = pagination.getPageSize();
 			pageNumber = pagination.getPageNumber();
-			noOfColumns = pagination.getNoOfColumn();
-			startIndex = (pageNumber - 1) * (pageSize * noOfColumns);
-			endIndex = startIndex + (pageSize * noOfColumns);
+			startIndex = (pageNumber - 1) * pageSize;
+			endIndex = startIndex + pageSize;
+			noOfPages = pagination.getNoOfPages();
 		}
 		List<ImageContainer> list = new ArrayList<>();
 		File file;
@@ -204,8 +203,12 @@ public class UploadFilesServiceImpl implements UploadFilesService {
 		if(null != pagination) {
 			pagination.setPageNumber(pageNumber);
 			pagination.setPageSize(pageSize);
-			totalCount = totalCount/(noOfColumns*pageSize);
-			pagination.setTotalCount(totalCount+1);
+			noOfPages = totalCount/pageSize;
+			if(totalCount%pageSize != 0) {
+				noOfPages++;
+			}
+			pagination.setTotalCount(totalCount);
+			pagination.setNoOfPages(noOfPages);
 			response.setPagination(pagination);
 		}
 		return response;

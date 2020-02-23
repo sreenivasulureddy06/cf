@@ -24,7 +24,7 @@ class ApplicationStore extends EventEmitter {
         return designImageList;
     }
     listAllRequest() {
-        return requestsList.requests;
+        return requestsList;
     }
     emitChange(eventName) {
         this.emit(eventName);

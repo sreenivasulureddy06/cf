@@ -30,11 +30,11 @@ public class HomeServiceImpl implements HomeService {
 		return manager.submitRequest(request);
 	}
 	
-	@GetMapping(value = "/submit/list",produces={"application/json"})
+	@PostMapping(value = "/submit/list",produces={"application/json"})
 	@CrossOrigin(origins = "http://localhost:3000")
-	public SubmitRespose requestsList() {
+	public SubmitRespose requestsList(@RequestBody SubmitRequest request) {
 		HomeManagerImpl manager = new HomeManagerImpl();
-		return manager.requestsList();
+		return manager.requestsList(request);
 	}
 
 }

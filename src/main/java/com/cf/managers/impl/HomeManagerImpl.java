@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.core.io.ClassPathResource;
@@ -17,6 +18,7 @@ import org.springframework.util.StringUtils;
 
 import com.cf.managers.manager.HomeManager;
 import com.cf.response.SubmitRespose;
+import com.cf.resquest.Pagination;
 import com.cf.resquest.SubmitRequest;
 
 public class HomeManagerImpl implements HomeManager {
@@ -50,13 +52,14 @@ public class HomeManagerImpl implements HomeManager {
 	}
 
 	@Override
-	public SubmitRespose requestsList() {
+	public SubmitRespose requestsList(SubmitRequest request) {
 		SubmitRespose response = new SubmitRespose();
 		try {
 			String filePath = userDir + "/request";
 			createDirectory(filePath);
 			File file = new File(filePath+"/request.txt");
 			List<String> allLines = new ArrayList<>();
+			List<String> result = new ArrayList<>();
 			try(BufferedReader br  = new BufferedReader(new FileReader(file))){
 				String strLine;
 				while((strLine = br.readLine()) != null){
@@ -65,7 +68,33 @@ public class HomeManagerImpl implements HomeManager {
 			}
 			SubmitRequest req = null;
 			List<SubmitRequest> list = new ArrayList<>();
-			for (String line : allLines) {
+			int pageSize = 10;
+			int pageNumber = 1;
+			int totalCount = 0;
+			int startIndex = 1;
+			int endIndex = startIndex;
+			int noOfPages = 1;
+			Pagination pagination = request.getPagination();
+			if(null != pagination) {
+				pageSize = pagination.getPageSize();
+				pageNumber = pagination.getPageNumber();
+				startIndex = (pageNumber - 1) * pageSize;
+				endIndex = startIndex + pageSize;
+				noOfPages = pagination.getNoOfPages();
+			}
+			totalCount = allLines.size();
+			if(startIndex >= totalCount) {
+				startIndex = totalCount--;
+			}
+			if(endIndex >= totalCount) {
+				endIndex = totalCount--;
+			}
+			if(null != pagination) {
+				result = allLines.subList(startIndex, endIndex);
+			} else {
+				result = allLines;
+			}
+			for (String line : result) {
 				req = new SubmitRequest();
 				String[] l = line.split("@@###");
 				if(l.length == 4) {
@@ -75,6 +104,17 @@ public class HomeManagerImpl implements HomeManager {
 					req.setDescription(l[3]);
 					list.add(req);
 				}
+			}
+			if(null != pagination) {
+				pagination.setPageNumber(pageNumber);
+				pagination.setPageSize(pageSize);
+				noOfPages = totalCount/pageSize;
+				if(totalCount%pageSize != 0) {
+					noOfPages++;
+				}
+				pagination.setTotalCount(totalCount);
+				pagination.setNoOfPages(noOfPages);
+				response.setPagination(pagination);
 			}
 			response.setRequests(list);
 		} catch (Exception e) {

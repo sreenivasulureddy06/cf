@@ -5,6 +5,7 @@ public class SubmitRequest {
 	public String phoneNumber;
 	public String email;
 	public String description;
+	private Pagination pagination;
 	
 	public String getFirstName() {
 		return firstName;
@@ -29,5 +30,11 @@ public class SubmitRequest {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Pagination getPagination() {
+		return pagination;
+	}
+	public void setPagination(Pagination pagination) {
+		this.pagination = pagination;
 	}
 }

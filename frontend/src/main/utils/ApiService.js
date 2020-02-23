@@ -74,8 +74,8 @@ export function submitRequest(url, body) {
         window.location.reload();
     });
 }
-export function listSubmissions(url) {
-    get(url).then(data=>{
-        HomeUtils.listSubmissions(data);
+export function listSubmissions(url, body) {
+    post(url, body).then(response => {
+        HomeUtils.listSubmissions(response);
     });
 }

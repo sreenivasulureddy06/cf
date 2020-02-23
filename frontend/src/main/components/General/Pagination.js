@@ -36,14 +36,14 @@ class Pagination extends Component {
     }
     onClickLastPage() {
         let tempPagination = this.props.pagination;
-        tempPagination.pageNumber = this.props.pagination.totalCount;
-        this.setState({pageNumber: this.props.pagination.totalCount});
+        tempPagination.pageNumber = this.props.pagination.noOfPages;
+        this.setState({pageNumber: this.props.pagination.noOfPages});
         this.props.onChangePagination(tempPagination);
     }
     onClickNextPage() {
         let tempPagination = this.props.pagination;
         let pageNumber = tempPagination.pageNumber;
-        if(pageNumber < tempPagination.totalCount) {
+        if(pageNumber < tempPagination.noOfPages) {
             pageNumber = pageNumber+1;
             tempPagination.pageNumber = pageNumber;
             this.setState({pageNumber: pageNumber});
@@ -65,7 +65,7 @@ class Pagination extends Component {
     render() {
         let totalPages = 1;
         if(this.props.pagination !== null && this.props.pagination !== undefined) {
-            totalPages = this.props.pagination.totalCount;
+            totalPages = this.props.pagination.noOfPages;
         }
         let selOptions = [];
         if(totalPages >= 1) {
@@ -75,7 +75,7 @@ class Pagination extends Component {
         }
         return(
             <div className="pagination-div">
-                <table>
+                <table id={this.props.id}>
                     <tbody>
                         <tr>
                             <td className="pagination-page-size">Page Size <input style={{width: "25%", paddingLeft: "3px"}} className="formField" type="text" value={this.state.pageSize} onChange={this.onChangePageSize}/></td>
