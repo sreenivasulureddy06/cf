@@ -15,11 +15,16 @@ class Pagination extends Component {
         this.onClickNextPage = this.onClickNextPage.bind(this);
     }
     onChangePageSize(event) {
-        this.setState({pageSize: event.target.value});
-        let tempPagination = this.props.pagination;
-        tempPagination.pageSize = event.target.value;
-        tempPagination.pageNumber = 1;
-        this.props.onChangePagination(tempPagination);
+        let numberRex = /^\d+$/;
+        if(event.target.value !== undefined && event.target.value !== "" && event.target.value.match(numberRex)) {
+            this.setState({pageSize: event.target.value});
+            let tempPagination = this.props.pagination;
+            tempPagination.pageSize = event.target.value;
+            tempPagination.pageNumber = 1;
+            this.props.onChangePagination(tempPagination);
+        } else {
+            this.setState({pageSize: this.state.pageSize});
+        }
     }
     onChangePageNumber(event) {
         let value = event.target.value;
