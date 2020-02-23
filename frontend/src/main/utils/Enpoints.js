@@ -1,6 +1,6 @@
 var baseURL = "http://www.clothsfactory.in";
 var local = "http://localhost:9001";
-baseURL = local;
+baseURL = "";
 export const CONTEXT_PATH = baseURL;
 export const LIST_ALL_IMAGES = CONTEXT_PATH + "/list/images";
 export const UPLOAD_IMAGES = CONTEXT_PATH + "/upload/images";
